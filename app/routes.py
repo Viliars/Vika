@@ -5,6 +5,6 @@ from flask import request
 def root():
     f = request.get_json()
     #["object"]["message"]["text"]
-    with open("test.txt", "wa") as fout:
+    with open("test.txt", "a") as fout:
         print(f, file=fout)
     return "ok", 200
