@@ -3,7 +3,8 @@ from flask import request
 
 @app.route('/', methods=['POST'])
 def root():
-    text = request["object"]["message"]["text"]
+    f = request.get_json()
+    #["object"]["message"]["text"]
     with open("test.txt", "wa") as fout:
-        print(text, file=fout)
+        print(f, file=fout)
     return "ok", 200
