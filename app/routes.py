@@ -40,7 +40,8 @@ def root():
         phrase: str = text[1:].strip().split()
         number = np.argmax(bm25.get_scores(phrase))
 
-        photo = upload.photo_messages(photos=f"images/{number}.jpg")
+        photos = upload.photo_messages(photos=f"images/{number}.jpg")
+        photo = photos[0]
         attachment = f"photo{photo['owner_id']}_{photo['id']}"
 
         vk.messages.send(peer_id=peer_id, attachment=attachment, random_id=get_random_id())
