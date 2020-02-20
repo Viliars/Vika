@@ -16,6 +16,8 @@ corpus = [
     "этот маленький маневр обойдется нам в 51 год"
 ]
 
+cache = {}
+
 tokenized_corpus = [doc.split(" ") for doc in corpus]
 
 bm25 = BM25Okapi(tokenized_corpus)
@@ -40,9 +42,13 @@ def root():
         phrase: str = text[1:].strip().split()
         number = np.argmax(bm25.get_scores(phrase))
 
-        photos = upload.photo_messages(photos=f"images/{number}.jpg")
-        photo = photos[0]
-        attachment = f"photo{photo['owner_id']}_{photo['id']}"
+        if number in cache:
+            attachment = f"photo{cache[number]['owner_id']}_{cache[number]['id']}"
+        else:
+            photos = upload.photo_messages(photos=f"images/{number}.jpg")
+            photo = photos[0]
+            attachment = f"photo{photo['owner_id']}_{photo['id']}"
+            cache[number] = {'owner_id': photo['owner_id'], 'id': photo['id']}
 
         vk.messages.send(peer_id=peer_id, attachment=attachment, random_id=get_random_id())
 
