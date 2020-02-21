@@ -1,17 +1,13 @@
 from vk_api.utils import get_random_id
 from rank_bm25 import BM25Okapi
 import numpy as np
+from app import static
 
-tokenized_corpus = []
-
-with open("interactive.txt") as fin:
-    for phrase in fin:
-        tokenized_corpus.append(phrase.strip().split())
+tokenized_corpus = [doc.split() for doc in static.interactive_corpus]
 
 cache = {}
 
 bm25 = BM25Okapi(tokenized_corpus)
-
 
 def sayhello(message, vk, upload):
     peer_id = message["peer_id"]
@@ -21,10 +17,7 @@ def sayhello(message, vk, upload):
         peer_id=peer_id
     )
 
-
 def interactive(message, vk, upload):
-    print(tokenized_corpus)
-
     text: str = message["text"]
     peer_id = message["peer_id"]
     phrase: str = text[1:].strip().split()
