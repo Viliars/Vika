@@ -2,22 +2,13 @@ from vk_api.utils import get_random_id
 from rank_bm25 import BM25Okapi
 import numpy as np
 
+tokenized_corpus = []
 
-corpus = [
-    "ну да ну да пошел я нахер",
-    "назад в дурку",
-    "этот маленький маневр обойдется нам в 51 год",
-    "ну ты глянь на себя крыса",
-    "ты чево дура",
-    "просто знай ты разочаровал нас троих",
-    "ах ты сукин сын я в деле",
-    "бузнос диас педрилас",
-    "выйди отсюда разбойник"
-]
+with open("interactive") as fin:
+    for phrase in fin:
+        tokenized_corpus.append(phrase.strip().split())
 
 cache = {}
-
-tokenized_corpus = [doc.split(" ") for doc in corpus]
 
 bm25 = BM25Okapi(tokenized_corpus)
 
