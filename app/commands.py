@@ -23,6 +23,8 @@ def sayhello(message, vk, upload):
 
 
 def interactive(message, vk, upload):
+    print(tokenized_corpus)
+
     text: str = message["text"]
     peer_id = message["peer_id"]
     phrase: str = text[1:].strip().split()
