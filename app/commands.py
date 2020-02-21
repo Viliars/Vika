@@ -21,6 +21,7 @@ tokenized_corpus = [doc.split(" ") for doc in corpus]
 
 bm25 = BM25Okapi(tokenized_corpus)
 
+
 def sayhello(message, vk, upload):
     peer_id = message["peer_id"]
     vk.messages.send(
