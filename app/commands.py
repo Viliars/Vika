@@ -4,7 +4,7 @@ import numpy as np
 
 tokenized_corpus = []
 
-with open("interactive") as fin:
+with open("interactive.txt") as fin:
     for phrase in fin:
         tokenized_corpus.append(phrase.strip().split())
 
