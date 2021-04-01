@@ -2,6 +2,10 @@ from vk_api.utils import get_random_id
 from rank_bm25 import BM25Okapi
 import numpy as np
 from app import static
+import requests
+import json
+from numpy.random import randint
+
 
 tokenized_corpus = [doc.split() for doc in static.interactive_corpus]
 
@@ -31,4 +35,24 @@ def interactive(message, vk, upload):
         attachment = f"photo{photo['owner_id']}_{photo['id']}"
         cache[number] = {'owner_id': photo['owner_id'], 'id': photo['id']}
 
+    vk.messages.send(peer_id=peer_id, attachment=attachment, random_id=get_random_id())
+
+
+def make_nav(message, vk, upload):
+    peer_id = message["peer_id"]
+    info = vk.messages.getConversationMembers(peer_id=peer_id)['profiles']
+    rd = randint(0, len(info))
+    name = f"{info[rd]['first_name']} {info[rd]['last_name']}"
+
+    json_data = {"name": name}
+    answer = requests.post("https://navalny.lol/api/generator", json=json_data)
+    file = json.loads(answer.text)['file']
+
+    receive = requests.get(f'https://navalny.lol/output/{file}')
+    with open(f'nav/{file}', 'wb') as f:
+        f.write(receive.content)
+
+    photos = upload.photo_messages(photos=f'nav/{file}')
+    photo = photos[0]
+    attachment = f"photo{photo['owner_id']}_{photo['id']}"
     vk.messages.send(peer_id=peer_id, attachment=attachment, random_id=get_random_id())

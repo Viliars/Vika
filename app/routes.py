@@ -9,6 +9,9 @@ def root():
     message = f["object"]["message"]
     text: str = message["text"]
 
+    if text == "/nav":
+        commands.make_nav(message, app.vk, app.upload)
+
     if text == "/sayhello":
         commands.sayhello(message, app.vk, app.upload)
 
