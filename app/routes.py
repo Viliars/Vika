@@ -15,7 +15,7 @@ def root():
     if text == "/sayhello":
         commands.sayhello(message, app.vk, app.upload)
 
-    if text == "/stat":
+    if text.startswith("/stat"):
         commands.hw1(message, app.vk, app.user_vk, app.upload)
 
     if text.startswith('!'):
