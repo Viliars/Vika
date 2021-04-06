@@ -13,7 +13,7 @@ vika_token = config["vk_api"].get("vika_token")
 
 app = Flask(__name__)
 
-vk_session = vk_api.VkApi(token=key)
+vk_session = vk_api.VkApi(token=vika_token)
 vk_user_session = vk_api.VkApi(login=login, token=user_token)
 
 app.upload = VkUpload(vk_session)
