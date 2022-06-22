@@ -6,7 +6,7 @@ idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.11.1
 MarkupSafe==1.1.1
-numpy==1.18.1
+numpy==1.22.0
 rank-bm25==0.2
 requests==2.22.0
 six==1.14.0
